@@ -59,7 +59,12 @@
 
         <!-- Botón que redirige a otra página -->
         <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
-
+<script>
+let visitas = localStorage.getItem('visitas_pagina') || 0;
+visitas++;
+localStorage.setItem('visitas_pagina', visitas);
+document.write('<div>Has visitado esta página ' + visitas + ' veces desde este navegador.</div>');
+</script>
 
 </body>
 </html>
