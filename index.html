@@ -60,20 +60,6 @@
         <!-- Botón que redirige a otra página -->
         <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
 
-       <!-- Contador de visitas global (nuevo) -->
-<div class="counter">
-    Visitas globales: <span id="global-visit-count">Cargando...</span>
-</div>
-
-<script>
-    // CONTADOR GLOBAL usando CountAPI
-    // Cambia 'ramondlcv-practica2' por el nombre que prefieras, debe ser único
-    fetch('https://api.countapi.xyz/hit/ramondlcv-practica2/visitas')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('global-visit-count').textContent = data.value;
-        });
-</script>
 
 </body>
 </html>
