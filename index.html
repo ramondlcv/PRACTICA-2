@@ -60,22 +60,31 @@
         <!-- Botón que redirige a otra página -->
         <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
 
-     <!-- Contador de visitas -->
-        <div class="counter">
-            Visitas: <span id="visit-count">0</span>
-        </div>
-    </div>
-   <script>
-        // Código para el contador de visitas
-        document.addEventListener('DOMContentLoaded', () => {
-            // Obtener el contador de visitas del almacenamiento local
-            let visitCount = localStorage.getItem('visitCount') || 0;
-            visitCount++; // Incrementar el contador
-            localStorage.setItem('visitCount', visitCount); // Guardar en almacenamiento local
+  <h1>Contador de visitas únicas</h1>
+    <p>Esta página ha sido visitada por <span id="viewCount">0</span> usuario(s) único(s) en este navegador.</p>
 
-            // Mostrar el contador de visitas en la página
-            document.getElementById('visit-count').textContent = visitCount;
-        });
+    <script>
+        // Función para incrementar vistas si es un usuario único
+        function incrementarVistas() {
+            // Verificar si el usuario ya fue contado
+            let usuarioContado = localStorage.getItem('usuarioContado');
+
+            if (!usuarioContado) {
+                // Si no ha sido contado, incrementar el contador
+                let vistas = localStorage.getItem('contadorVistas') || 0;
+                vistas++;
+                localStorage.setItem('contadorVistas', vistas);
+
+                // Marcar al usuario como contado
+                localStorage.setItem('usuarioContado', 'true');
+            }
+
+            // Mostrar el contador actualizado
+            let vistasActuales = localStorage.getItem('contadorVistas');
+            document.getElementById('viewCount').innerText = vistasActuales;
+        }
+
+        window.onload = incrementarVistas;
     </script>
 </body>
 </html>
