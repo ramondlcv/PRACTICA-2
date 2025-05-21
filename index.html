@@ -1,114 +1,85 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Página Estética con Contador y Música</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: 'Segoe UI', sans-serif;
-      background: url(''https://m.gettywallpapers.com/es/wp-content/uploads/2023/06/Fondos-de-Pantalla-Cholos-Computadora.jpg') no-repeat center center fixed;
-      background-size: cover;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      backdrop-filter: blur(2px);
-    }
-    .container {
-      background: rgba(255, 255, 255, 0.80);
-      border-radius: 18px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      padding: 36px 48px;
-      text-align: center;
-      margin-top: 40px;
-    }
-    h1 {
-      margin-bottom: 8px;
-      color: #2d2d48;
-    }
-    .count {
-      font-size: 2.5em;
-      color: #3549a0;
-      margin: 16px 0;
-    }
-    .go-btn {
-      margin-top: 24px;
-      padding: 14px 32px;
-      background: linear-gradient(90deg, #4e54c8 0%, #8f94fb 100%);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.2em;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 4px 12px rgba(78,84,200,0.15);
-    }
-    .go-btn:hover {
-      background: linear-gradient(90deg, #8f94fb 0%, #4e54c8 100%);
-    }
-    .music-credit {
-      margin-top: 16px;
-      color: #444b6e;
-      font-size: 0.95em;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Imagen de Fondo</title>
+    <style>
+        /* Estilo para la imagen de fondo */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://m.gettywallpapers.com/es/wp-content/uploads/2023/06/Fondos-de-Pantalla-Cholos-Computadora.jpg'); /* Cambia esta URL a tu imagen */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        /* Estilo para el contenedor principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        }
+
+        /* Estilo para el botón */
+        .button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilo para el contador */
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <audio id="bg-music" src="URL_DE_TU_MUSICA.mp3" autoplay loop></audio>
-  <div class="container">
-    <h1>¡Bienvenido!</h1>
-    <div>Visitas Únicas:</div>
-    <div class="count" id="visit-count">...</div>
-    <button class="go-btn" onclick="window.location.href='https://www.ejemplo.com'">
-      Ir a otra página
-    </button>
-    <div class="music-credit">
-      Música de fondo: <a href="URL_DE_TU_MUSICA.mp3" target="_blank">Escuchar</a>
+    <div class="container">
+        <h1>¡BIENVENIDOS A MI PAGINA!</h1>
+        <p>Explora el contenido y disfruta de la experiencia.</p>
+
+        <!-- Botón que redirige a otra página -->
+        <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
+
+ <!-- Contador de visitas -->
+        <div class="counter">
+            Visitas: <span id="visit-count">0</span>
+        </div>
     </div>
-  </div>
-  <script>
-    // Cambia estas URLs por las que desees
-    const VISIT_API_URL = 'https://api.countapi.xyz/hit/ramondlcv_practica2/unique-visits';
-    const LOCAL_KEY = 'ramondlcv_practica2_visited';
+   <script>
+        // Código para el contador de visitas
+        document.addEventListener('DOMContentLoaded', () => {
+            // Obtener el contador de visitas del almacenamiento local
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount++; // Incrementar el contador
+            localStorage.setItem('visitCount', visitCount); // Guardar en almacenamiento local
 
-    // Autoplay workaround para algunos navegadores
-    window.addEventListener('DOMContentLoaded', () => {
-      const audio = document.getElementById('bg-music');
-      audio.volume = 0.18;
-      audio.play().catch(() => {
-        document.body.addEventListener('click', () => audio.play(), {once:true});
-      });
-    });
-
-    // Contador único usando localStorage y countapi.xyz (servicio gratuito)
-    function updateVisitCount() {
-      const visited = localStorage.getItem(LOCAL_KEY);
-      if (!visited) {
-        fetch(VISIT_API_URL)
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById('visit-count').textContent = data.value;
-            localStorage.setItem(LOCAL_KEY, '1');
-          })
-          .catch(() => {
-            document.getElementById('visit-count').textContent = 'Error';
-          });
-      } else {
-        // Solo obtener el valor, no sumar visita
-        fetch('https://api.countapi.xyz/get/ramondlcv_practica2/unique-visits')
-          .then(res => res.json())
-          .then(data => {
-            document.getElementById('visit-count').textContent = data.value;
-          })
-          .catch(() => {
-            document.getElementById('visit-count').textContent = 'Error';
-          });
-      }
-    }
-    updateVisitCount();
-  </script>
+            // Mostrar el contador de visitas en la página
+            document.getElementById('visit-count').textContent = visitCount;
+        });
+    </script>
 </body>
 </html>
+
+
+  <!-- Reproductor de música de fondo (puedes cambiar la URL de src por la canción que prefieras) -->
+    <audio id="background-music" src="https://www.youtube.com/watch?v=wmef2TEPGgo
