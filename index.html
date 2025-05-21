@@ -1,85 +1,126 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página con Imagen de Fondo</title>
-    <style>
-        /* Estilo para la imagen de fondo */
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('https://m.gettywallpapers.com/es/wp-content/uploads/2023/06/Fondos-de-Pantalla-Cholos-Computadora.jpg'); /* Cambia esta URL a tu imagen */
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            color: white;
-            text-align: center;
-        }
-
-        /* Estilo para el contenedor principal */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-        }
-
-        /* Estilo para el botón */
-        .button {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 18px;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-top: 20px;
-        }
-
-        .button:hover {
-            background-color: #218838;
-        }
-
-        /* Estilo para el contador */
-        .counter {
-            font-size: 24px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Página estética con contador y música</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .container {
+      background: rgba(255,255,255,0.85);
+      border-radius: 16px;
+      padding: 2.5rem 2rem 2rem 2rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+      text-align: center;
+      min-width: 340px;
+    }
+    h1 {
+      margin-bottom: 8px;
+      color: #222c3e;
+      font-size: 2.1em;
+      font-weight: 700;
+    }
+    #contador {
+      font-size: 2.5em;
+      color: #007aff;
+      font-weight: bold;
+      margin: 20px 0 30px 0;
+    }
+    .boton {
+      background: linear-gradient(90deg, #4e54c8, #8f94fb);
+      color: white;
+      padding: 12px 36px;
+      border: none;
+      border-radius: 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s, box-shadow 0.3s;
+      margin-top: 12px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+    .boton:hover {
+      background: linear-gradient(90deg, #8f94fb, #4e54c8);
+      box-shadow: 0 6px 25px rgba(50,50,200,0.12);
+    }
+    .music-controls {
+      margin-top: 16px;
+    }
+    .music-controls button {
+      font-size: 1em;
+      background: #f4f6fa;
+      border: 1px solid #cfd8e7;
+      border-radius: 8px;
+      padding: 5px 18px;
+      margin-top: 7px;
+      cursor: pointer;
+      color: #0063b1;
+      transition: background 0.2s, border 0.2s;
+    }
+    .music-controls button:hover {
+      background: #e9f2fb;
+      border: 1px solid #007aff;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>¡BIENVENIDOS A MI PAGINA!</h1>
-        <p>Explora el contenido y disfruta de la experiencia.</p>
-
-        <!-- Botón que redirige a otra página -->
-        <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
-
- <!-- Contador de visitas -->
-        <div class="counter">
-            Visitas: <span id="visit-count">0</span>
-        </div>
+  <div class="container">
+    <h1>¡Bienvenido!</h1>
+    <div>Contador de visitas únicas:</div>
+    <div id="contador">0</div>
+    <button class="boton" onclick="window.location.href='https://www.ejemplo.com/'">Ir a otra página</button>
+    <div class="music-controls">
+      <audio id="bg-music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop></audio>
+      <br>
+      <button onclick="toggleMusic()">Pausar / Reproducir Música</button>
     </div>
-   <script>
-        // Código para el contador de visitas
-        document.addEventListener('DOMContentLoaded', () => {
-            // Obtener el contador de visitas del almacenamiento local
-            let visitCount = localStorage.getItem('visitCount') || 0;
-            visitCount++; // Incrementar el contador
-            localStorage.setItem('visitCount', visitCount); // Guardar en almacenamiento local
+  </div>
+  <script>
+    // Manejo del contador único por usuario
+    const contadorKey = 'pagina-contador-visitado-v2';
+    const totalKey = 'pagina-contador-global-v2';
 
-            // Mostrar el contador de visitas en la página
-            document.getElementById('visit-count').textContent = visitCount;
-        });
-    </script>
+    // Solo cuenta la visita si el usuario nunca visitó esta página
+    if (!localStorage.getItem(contadorKey)) {
+      // Si no existe el contador global, inicialízalo
+      if (!localStorage.getItem(totalKey)) {
+        localStorage.setItem(totalKey, '1');
+      } else {
+        let total = parseInt(localStorage.getItem(totalKey));
+        total++;
+        localStorage.setItem(totalKey, total.toString());
+      }
+      localStorage.setItem(contadorKey, 'true');
+    }
+
+    // Mostrar el contador
+    document.getElementById('contador').textContent = localStorage.getItem(totalKey) || '1';
+
+    // Autoplay workaround para algunos navegadores
+    window.addEventListener('DOMContentLoaded', function() {
+      const music = document.getElementById('bg-music');
+      music.volume = 0.5;
+      music.play().catch(()=>{}); // Ignora el error si el navegador bloquea el autoplay
+    });
+
+    // Botón para pausar/reanudar la música
+    function toggleMusic() {
+      const music = document.getElementById('bg-music');
+      if (music.paused) {
+        music.play();
+      } else {
+        music.pause();
+      }
+    }
+  </script>
 </body>
 </html>
-
-
-  <!-- Reproductor de música de fondo (puedes cambiar la URL de src por la canción que prefieras) -->
-    <audio id="background-music" src="https://www.youtube.com/watch?v=wmef2TEPGgo
