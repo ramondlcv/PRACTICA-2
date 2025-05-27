@@ -1,105 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Página con Estilo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Montserrat', Arial, sans-serif;
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)),
-        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-    .container {
-      background: rgba(30,30,30,0.8);
-      padding: 40px 60px;
-      border-radius: 24px;
-      box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
-      backdrop-filter: blur(4px);
-      text-align: center;
-    }
-    h1 {
-      margin-bottom: 24px;
-      font-size: 2.5em;
-      letter-spacing: 2px;
-      color: #ffd700;
-      text-shadow: 2px 2px 8px #000;
-    }
-    #contador {
-      font-size: 1.4em;
-      margin-bottom: 24px;
-      color: #00ffd0;
-    }
-    .boton {
-      background: linear-gradient(90deg, #ff9966, #ff5e62);
-      color: #fff;
-      border: none;
-      border-radius: 32px;
-      padding: 18px 40px;
-      font-size: 1.2em;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
-      margin-bottom: 24px;
-    }
-    .boton:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      background: linear-gradient(90deg, #ff5e62, #ff9966);
-    }
-    .musica {
-      margin-top: 24px;
-      background: rgba(0,0,0,0.4);
-      border-radius: 16px;
-      padding: 10px;
-      display: inline-block;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    }
-    .musica audio {
-      width: 250px;
-      outline: none;
-      border-radius: 8px;
-      background: #222;
-    }
-    @media (max-width: 600px) {
-      .container { padding: 20px 10px; }
-      h1 { font-size: 1.5em; }
-      .boton { padding: 12px 20px; font-size: 1em; }
-      .musica audio { width: 180px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página con Imagen de Fondo</title>
+    <style>
+        /* Estilo para la imagen de fondo */
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://m.gettywallpapers.com/es/wp-content/uploads/2023/06/Fondos-de-Pantalla-Cholos-Computadora.jpg'); /* Cambia esta URL a tu imagen */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        /* Estilo para el contenedor principal */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        }
+
+        /* Estilo para el botón */
+        .button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilo para el contador */
+        .counter {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>¡Bienvenido a mi página !</h1>
-    <div id="contador">Cargando visitas...</div>
-    <button class="boton" onclick="window.location.href='https://www.ejemplo.com'">
-      Ir a Página Atractiva
-    </button>
-    <div class="musica">
-      <audio id="audio" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" autoplay loop controls></audio>
-      <div style="font-size:0.9em;color:#ffd700;margin-top:4px;">♫ Disfruta la música de fondo ♫</div>
+    <div class="container">
+        <h1>¡BIENVENIDOS A MI PAGINA!</h1>
+        <p>Explora el contenido y disfruta de la experiencia.</p>
+
+        <!-- Botón que redirige a otra página -->
+        <a href="https://ramondlcv.github.io/WEBPAGE/?authuser=0" target="_blank" class="button">Ir a otra página</a>
+
+ <!-- Contador de visitas -->
+        <div class="counter">
+            Visitas: <span id="visit-count">0</span>
+        </div>
     </div>
-  </div>
-  <script>
-    // Contador de visitas usando localStorage
-    let visitas = localStorage.getItem('visitas') ? parseInt(localStorage.getItem('visitas')) : 0;
-    visitas++;
-    localStorage.setItem('visitas', visitas);
-    document.getElementById('contador').innerText = "Número de visitas: " + visitas;
-    // Autoplay en algunos navegadores puede requerir interacción del usuario
-    window.addEventListener('DOMContentLoaded', () => {
-      const audio = document.getElementById('audio');
-      audio.volume = 0.5;
-      audio.play().catch(() => { /* Silencio si el navegador bloquea autoplay */ });
-    });
+   <script>
+        // Código para el contador de visitas
+        document.addEventListener('DOMContentLoaded', () => {
+            // Obtener el contador de visitas del almacenamiento local
+            let visitCount = localStorage.getItem('visitCount') || 0;
+            visitCount++; // Incrementar el contador
+            localStorage.setItem('visitCount', visitCount); // Guardar en almacenamiento local
+
+            // Mostrar el contador de visitas en la página
+            document.getElementById('visit-count').textContent = visitCount;
+        });
+    </script>
+</body>
+</html>
